@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.2)
+PROJECT(rHeap_sample)
+
+message("${CMAKE_CURRENT_SOURCE_DIR}")
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../../ryimtl)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../../ryimll/include) 
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../utility/include)
+
+AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} DIR_SRCS)
+
+MATH(EXPR BITS "8*${CMAKE_SIZEOF_VOID_P}")
+SET(ryimll_library_dir ${CMAKE_CURRENT_SOURCE_DIR}/../../ryimll/build_${BITS})
+SET(utility_library_dir ${CMAKE_CURRENT_SOURCE_DIR}/../utility/build_${BITS})
+message("${ryimll_library_dir}")
+message("${utility_library_dir}")
+IF(CMAKE_BUILD_TYPE MATCHES "Debug")
+    LINK_DIRECTORIES(${ryimll_library_dir}/lib/Debug)
+    LINK_DIRECTORIES(${utility_library_dir}/lib/Debug)
+ELSE()
+    LINK_DIRECTORIES(${ryimll_library_dir}/lib/Release)
+    LINK_DIRECTORIES(${utility_library_dir}/lib/Release)
+ENDIF()
+
+ADD_EXECUTABLE(${PROJECT_NAME} ${DIR_SRCS})
+
+IF(CMAKE_BUILD_TYPE MATCHES "Debug")
+    TARGET_LINK_LIBRARIES(${PROJECT_NAME} ryimlld utilityd)
+ELSE()
+    TARGET_LINK_LIBRARIES(${PROJECT_NAME} ryimll utility)
+ENDIF()

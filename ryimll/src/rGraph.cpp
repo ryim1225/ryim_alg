@@ -6,7 +6,7 @@
 //#include <string>
 //#include <iostream>
 //#include <stack>
-//#include <limits>
+#include <limits>
 
 
 ////////////////////////////UndirectedGraph//////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ Ryim::UndirectedGraph::~UndirectedGraph()
 void Ryim::UndirectedGraph::clearState()
 {
 	m_path->clear();
-	m_path->resize(m_vertex, INT_MIN);
+	m_path->resize(m_vertex, std::numeric_limits<int>::min());
 	m_marked->clear();
 	m_marked->resize(m_vertex);
 }
@@ -66,7 +66,7 @@ void Ryim::UndirectedGraph::initial(int Vertex)
 	m_edge = 0;
 	m_adj = new ADJ_ARRAY(Vertex);
 	m_marked = new MARKED(Vertex, false);
-	m_path = new PATH(Vertex, INT_MIN);
+	m_path = new PATH(Vertex, std::numeric_limits<int>::min());
 	for (int v = 0; v < Vertex; ++v)
 	{
 		(*m_adj)[v] = new ADJ();
@@ -302,14 +302,14 @@ Ryim::DirectedDFS::~DirectedDFS()
 bool Ryim::DirectedDFS::init(int vs)
 {
 	m_marked = new MARKED(vs, false);
-	m_path = new PATH(vs, INT_MIN);
+	m_path = new PATH(vs, std::numeric_limits<int>::min());
 	return true;
 }
 
 void Ryim::DirectedDFS::clearState(int vs)
 {
 	m_path->clear();
-	m_path->resize(vs, INT_MIN);
+	m_path->resize(vs, std::numeric_limits<int>::min());
 	m_marked->clear();
 	m_marked->resize(vs);
 }

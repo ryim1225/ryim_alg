@@ -4,7 +4,7 @@
 #include "rUtility.h"
 #include "rArrayList.h"
 #include "rException.h"
-#include <xutility>
+//#include <xutility>
 
 namespace Ryim
 {
@@ -26,9 +26,19 @@ namespace Ryim
 			enum error_code { isOK = 0, empty };
 
 			template<typename RandomIter>
+			error_code _checkIter(RandomIter _first, RandomIter _last)
+			{
+				if (_first > _last)
+					throw illegalIterator("this container is invalid!");
+				else if (_last == _first)
+					return empty;
+				return isOK;
+			}
+			
+			template<typename RandomIter>
 			error_code checkIter(RandomIter _first, RandomIter _last, RandomIter _pos)
 			{
-				error_code code = checkIter(_first, _last);
+				error_code code = _checkIter(_first, _last);
 				if (isOK != code)
 					return code;
 
@@ -40,16 +50,6 @@ namespace Ryim
 				if (_first != _last && (_pos >= _last || _pos < _first))
 					throw illegalIterator("the position has not belonged to the container!");
 
-				return isOK;
-			}
-
-			template<typename RandomIter>
-			error_code checkIter(RandomIter _first, RandomIter _last)
-			{
-				if (_first > _last)
-					throw illegalIterator("this container is invalid!");
-				else if (_last == _first)
-					return empty;
 				return isOK;
 			}
 
@@ -155,7 +155,7 @@ namespace Ryim
 
 
 		// Make heap 
-		template<typename RandomIter, typename Comp = AlgTools::less<RandomIter::value_type> >
+		template<typename RandomIter, typename Comp = AlgTools::less<typename RandomIter::value_type> >
 		class buildHeap
 		{
 			typedef typename std::iterator_traits<RandomIter>::difference_type difference_type;
@@ -163,7 +163,7 @@ namespace Ryim
 		public:
 			void operator()(RandomIter _first, RandomIter _last)
 			{
-				if (tools_heap::isOK != tools_heap::checkIter(_first, _last))
+				if (tools_heap::isOK != tools_heap::_checkIter(_first, _last))
 					return;
 
 				difference_type count = _last - _first;
@@ -198,7 +198,7 @@ namespace Ryim
 		};
 
 
-		template<typename RandomIter, typename Comp = AlgTools::less<RandomIter::value_type> >
+		template<typename RandomIter, typename Comp = AlgTools::less<typename RandomIter::value_type> >
 		class pushHeap 
 		{
 			//typename std::iterator_traits<RandomIter>::value_type value_type;
@@ -210,13 +210,13 @@ namespace Ryim
 			}
 		};
 
-		template<typename RandomIter, typename Comp = AlgTools::less<RandomIter::value_type> >
+		template<typename RandomIter, typename Comp = AlgTools::less<typename RandomIter::value_type> >
 		class popHeap
 		{
 		public:
 			RandomIter operator()(RandomIter _first, RandomIter _last)
 			{
-				if (tools_heap::isOK != tools_heap::checkIter(_first, _last))
+				if (tools_heap::isOK != tools_heap::_checkIter(_first, _last))
 					return _last;
 
 				std::iter_swap(_first, _last - 1);

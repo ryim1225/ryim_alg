@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "../src/rTree.h"
+#include "../../ryimtl/rTree.h"
 
 class testTree
 {

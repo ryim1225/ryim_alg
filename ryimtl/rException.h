@@ -6,7 +6,7 @@ namespace Ryim
 	{
 	public:
 		BaseException():strExceptionMessage(NULL){}
-		BaseException(char* message) :strExceptionMessage(message)
+		explicit BaseException(char* message) :strExceptionMessage(message)
 		{
 			unId = 0;
 		}
@@ -21,7 +21,7 @@ namespace Ryim
 	class illegalParameterValue: public BaseException
 	{
 	public:
-		illegalParameterValue(char* message) : BaseException(message)
+		explicit illegalParameterValue(char* message) : BaseException(message)
 		{
 			unId = 1;
 		}

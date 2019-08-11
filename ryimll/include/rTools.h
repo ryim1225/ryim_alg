@@ -1,12 +1,27 @@
 #ifndef _R_TOOLS_H_
 #define _R_TOOLS_H_
+#include <vector>
 
 namespace Ryim
 {
-    class Tools
+    namespace lzMath
     {
-    public:
-    bool isLeapYear(unsigned long year);
-    };
+        class LeapYearCalculator
+        {
+        public:
+            bool isLeapYear(unsigned long year);
+        };
+
+        class factorialCalculator
+        {
+        public:
+            factorialCalculator();
+            ~factorialCalculator();
+            unsigned long long calc(unsigned long long number);
+        private:
+            std::vector<unsigned long long> m_table;
+        };
+    }
+
 }// Ryim end
 #endif

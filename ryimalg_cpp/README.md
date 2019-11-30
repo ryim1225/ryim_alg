@@ -11,6 +11,7 @@
   > * python build.py ryimll Debug
   > * python build.py utility Debug
   > * python build.py {xxx_sample} Debug
+  >
   > or
   > * python build.py ryimll Release
   > * python build.py utility Release
@@ -41,4 +42,6 @@
 
 ## tools
 need by as follow:
-graphviz -> http://www.graphviz.org/ for rTree.h
+
+- graphviz -> http://www.graphviz.org/ for rTree.h
+- eigen    -> http://eigen.tuxfamily.org

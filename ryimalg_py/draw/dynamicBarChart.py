@@ -5,7 +5,6 @@ import imageio
 
 
 def make_pictures(csv_file, png_path = "imgs/", seed_png = "seed.png"):
-    print(png_path)
     if not os.path.exists(png_path):
         os.makedirs(png_path)
     with open(csv_file) as f:
@@ -13,7 +12,10 @@ def make_pictures(csv_file, png_path = "imgs/", seed_png = "seed.png"):
         it = 0
         for it, row in enumerate(f_csv):
             if it%2 == 0:
-                portion = row
+                portion = [float(i) for i in row]
+                #print(portion)
+                max_value = max(portion)
+                #print("max value: {}".format(max_value))
                 x_total_num = len(portion)
                 continue
             else:
@@ -21,10 +23,13 @@ def make_pictures(csv_file, png_path = "imgs/", seed_png = "seed.png"):
             with Image.open(seed_png) as im:
                 draw = ImageDraw.Draw(im)
                 for i in range(x_total_num):
-                    draw.rectangle(xy = [i*(im.size[0]/x_total_num) + 4, 
-                    im.size[1]-float(portion[i])*(2*im.size[1]/3)/100, 
-                    (i+1)*im.size[0]/x_total_num, 
-                    im.size[1]], 
+                    #print("portion: {}".format(portion[i]/max_value))
+                    draw.rectangle(xy = [
+                        i*(im.size[0]/x_total_num) + 4, 
+                        im.size[1] * (1 - portion[i]/max_value*(2/3)),
+                        (i+1)*im.size[0]/x_total_num, 
+                        im.size[1]
+                        ], 
                     fill=ImageColor.getrgb(colors[i]))
                 im.save(png_path+str(it)+".png")
         return it

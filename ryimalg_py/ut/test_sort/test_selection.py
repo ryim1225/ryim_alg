@@ -5,7 +5,7 @@ sys.path.append(os.getcwd() + "/../../")
 sys.path.append(os.getcwd() + "/ryimalg_py")
 print(sys.path)
 import sort.selection_sort as sst
-import draw.dynamicBarChart as ddbc
+import draw.paint as dp
 
 
 class TestSelectionSort(unittest.TestCase):
@@ -31,9 +31,9 @@ class TestSelectionSort(unittest.TestCase):
         csv_file = output_path + "selection_sort_info.csv"
         self.ss.sort_gif(l, csv_file)
         print(l)
-        num = ddbc.make_pictures(csv_file, output_path + "selection_sort_imgs/", "../../draw/seed.png")
+        num = dp.make_pictures_of_barchart(csv_file, output_path + "selection_sort_imgs/", "../../draw/seed.png")
         print(num)
-        ddbc.create_gif([output_path+ 'selection_sort_imgs/'+str(i)+'.png' for i in range(1,num,2)], output_path + "selection_sort.gif", 0.8)
+        dp.create_gif([output_path+ 'selection_sort_imgs/'+str(i)+'.png' for i in range(1,num,2)], output_path + "selection_sort.gif", 0.8)
 
 
 def suite():

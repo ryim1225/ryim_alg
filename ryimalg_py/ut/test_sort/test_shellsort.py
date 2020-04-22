@@ -6,7 +6,7 @@ sys.path.append(os.getcwd() + "/../../")
 sys.path.append(os.getcwd() + "/ryimalg_py")
 print(sys.path)
 import sort.shell_sort as sslt
-import draw.dynamicBarChart as ddbc
+import draw.paint as dp
 
 
 class TestShellSort(unittest.TestCase):
@@ -31,9 +31,9 @@ class TestShellSort(unittest.TestCase):
             os.mkdir(output_path)
         csv_file = output_path + "shell_sort_info.csv"
         self.ss.sort_gif(l, csv_file)
-        num = ddbc.make_pictures(csv_file, output_path + "shell_sort_imgs/", "../../draw/seed.png")
+        num = dp.make_pictures_of_barchart(csv_file, output_path + "shell_sort_imgs/", "../../draw/seed.png")
         #print(num)
-        ddbc.create_gif([output_path+ 'shell_sort_imgs/'+str(i)+'.png' for i in range(1,num,2)], output_path + "shell_sort.gif", 0.8)
+        dp.create_gif([output_path+ 'shell_sort_imgs/'+str(i)+'.png' for i in range(1,num,2)], output_path + "shell_sort.gif", 0.8)
 
 
 def suite():

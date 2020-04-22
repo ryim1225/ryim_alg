@@ -5,7 +5,7 @@ sys.path.append(os.getcwd() + "/../../")
 sys.path.append(os.getcwd() + "/ryimalg_py")
 print(sys.path)
 import sort.insertion_sort as sit
-import draw.dynamicBarChart as ddbc
+import draw.paint as dp
 
 
 class TestInsertionSort(unittest.TestCase):
@@ -30,9 +30,9 @@ class TestInsertionSort(unittest.TestCase):
             os.mkdir(output_path)
         csv_file = output_path + "insertion_sort_info.csv"
         self.ss.sort_gif(l, csv_file)
-        num = ddbc.make_pictures(csv_file, output_path + "insertion_sort_imgs/", "../../draw/seed.png")
+        num = dp.make_pictures_of_barchart(csv_file, output_path + "insertion_sort_imgs/", "../../draw/seed.png")
         #print(num)
-        ddbc.create_gif([output_path+ 'insertion_sort_imgs/'+str(i)+'.png' for i in range(1,num,2)], output_path + "insertion_sort.gif", 0.8)
+        dp.create_gif([output_path+ 'insertion_sort_imgs/'+str(i)+'.png' for i in range(1,num,2)], output_path + "insertion_sort.gif", 0.8)
 
 
 def suite():

@@ -27,3 +27,14 @@ class BinarySearchTree(dbt.BinaryTree):
                 else:
                     node.left = dbt.BinaryTreeNode(value)
                     return
+
+    def search(self, value):
+        node = self._root
+        while node is not None:
+            if node.data < value:
+                node = node.right
+            elif node.data > value:
+                node = node.left
+            else:
+                return node
+        return None
